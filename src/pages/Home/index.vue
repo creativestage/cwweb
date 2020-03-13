@@ -12,6 +12,11 @@
 export default {
   data: () => ({
     msg: ''
-  })
+  }),
+  mounted() {
+    this.$ajax({
+      url: '/api/mokuai/list'
+    })
+  }
 }
 </script>

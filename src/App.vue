@@ -27,6 +27,11 @@ export default {
       zh_CN,
     }
   },
+  watch: {
+    '$route': function () {
+      this.$store.dispatch('openRoute', window.location.hash.slice(2));
+    }
+  },
   components: {
     Header,
     Left,
@@ -49,9 +54,10 @@ export default {
   flex-direction: column;
 }
 .content-inner {
-  flex: 1;
+  height: 100vh;
   width: 100%;
-  background: #fff;
+  background: #f9f7fd;
   overflow: auto;
+  padding: 8px;
 }
 </style>

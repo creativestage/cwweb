@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './plugins/ant-design-vue.js'
-import './plugins/router';
-import './plugins/vuex';
+import './plugins'
 import router from './routers';
 import store from './store';
 import './app.less';
