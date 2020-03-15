@@ -5,7 +5,7 @@
         :class="['select-route', item.code === $store.state.main.activeRoute ? 'select-route-active' : '']"
         v-for="item in openList" :key="item.code"
       >
-        <span>{{item.title}}</span> <a-icon @click.stop="handleClose(item.code)" class="select-route-close" type="close" />
+        <span>{{item.title}}</span> <a-icon v-if="item.code !== 'Home'" @click.stop="handleClose(item.code)" class="select-route-close" type="close" />
       </div>
     </div>
   </div>

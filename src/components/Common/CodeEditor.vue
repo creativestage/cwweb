@@ -48,19 +48,20 @@
 <style lang="less">
 .code-container {
   position: relative;
-  width: 560px;
+  width: 600px;
+  height: 100%;
   display: flex;
 }
 .code-base-info {
   width: 100%;
-  height: 600px;
+  height: 100%;
 }
 .editor-wrapper {
   position: relative;
 }
 .code-edit {
-  width: 560px;
-  height: 600px;
+  width: 100%;
+  height: 100%;
   margin-left: 10px;
 }
 .render-btn {
@@ -165,7 +166,7 @@ export default {
       this.handleChange(field, value);
     },
     onSaveCode() {
-      this.$emit("save", this.code);
+      this.$emit("save");
     }
   }
 };

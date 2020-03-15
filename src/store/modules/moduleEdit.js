@@ -1,27 +1,32 @@
 
 import {getUUId, getFactory} from '../../Tools/common';
 
-const getInitState = () => {
-  return {
-    module: {
-      key: getUUId(),
-      name: '',
-      desc: '',
-      html: '',
-      css: '',
-      js: '',
-      config: '[]',
-    },
-    configurationValue: {},
-    previewUrl: ''
-  };
+const getInitModule = () => ({
+  key: getUUId(),
+  name: '',
+  desc: '',
+  html: '',
+  css: '',
+  js: '',
+  config: '[]',
+});
+
+const state = {
+  configurationValue: {},
+  previewUrl: '',
+  module: getInitModule()
 }
 
-const state = getInitState();
-
 const mutations = {
+  init(state) {
+    state.module = getInitModule();
+    state.previewUrl = '';
+    state.configurationValue = {};
+  },
   setter(state, module) {
     state.module = module;
+    state.previewUrl = '';
+    state.configurationValue = {};
   },
   modify(state, options) {
     state.module = {
@@ -43,6 +48,9 @@ const mutations = {
 const actions = {
   setModule(context, module) {
     context.commit('setter', module);
+  },
+  initModule(context) {
+    context.commit('init');
   },
   modifyModuleInfo(context, options) {
     context.commit('modify', options);

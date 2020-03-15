@@ -1,24 +1,36 @@
 <template>
-  <div class="flex-container">
-    <CodeEditor :mokuai="$store.state.moduleEdit.module" :handleChange="handleChange"></CodeEditor>
+  <div class="flex-container module-edit-contianer">
+      <CodeEditor
+        :mokuai="$store.state.moduleEdit.module" :handleChange="handleChange"
+        v-on:save="handleSave">
+      </CodeEditor>
+    
     <div class="config-setting">
       <ConfigForm :configuration="configuration" v-on:onChange="handleConfigurationChange">
         <div slot="footer">
-          <a-button @click="handlePreview">预览</a-button>
+          <a-button class="text-primary" @click="handlePreview">预览</a-button>
         </div>
       </ConfigForm>
     </div>
-    <Preview>
-      <iframe class="preview-box" v-if="$store.state.moduleEdit.previewUrl" slot="main" :src="$store.state.moduleEdit.previewUrl"></iframe>
-    </Preview>
+    <div class="preview-wrap">
+      <Preview :handleClose="handleClosePreview" :title="'页面预览'">
+       <iframe class="preview-box" v-if="$store.state.moduleEdit.previewUrl" slot="main" :src="$store.state.moduleEdit.previewUrl"></iframe>
+      </Preview>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.module-edit-contianer {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 600px 1fr 1fr;
+  grid-template-rows: auto-fill;
+  grid-column-gap: 8px;
+}
 .config-setting {
   margin: 0 16px;
-  width: 320px;
-  /* padding-top: 72px; */
+  padding-top: 72px;
   height: 600px;
   box-sizing: border-box;
 }
@@ -27,27 +39,20 @@
   outline: none;
   height: 100%;
 }
+.preview-wrap {
+  padding-top: 72px;
+  height: 600px;
+}
 </style>
 
 <script>
 import { mapGetters } from 'vuex'
-import {getUUId, createPageUrl} from '../../../Tools/common';
+import {createPageUrl} from '../../../Tools/common';
 import {transformConfig} from '../../../Tools/formatConversion';
 import CodeEditor from '../../../components/Common/CodeEditor';
 import ConfigForm from '../../../components/Common/ConfigForm';
 import Preview from '../../../components/Common/Preview';
 export default {
-  data: () => ({
-    previewUrl: '',
-    mokuai: {
-      title: '',
-      key: getUUId(),
-      html: '',
-      js: '',
-      css: '',
-      config: '[]'
-    }
-  }),
   components: {
     CodeEditor,
     Preview,
@@ -58,14 +63,11 @@ export default {
       'configuration',
     ])
   },
-  watch: {
-    '$route.query.id': function (newId) {
-      this.fetchDetail(newId);
-    }
-  },
   mounted() {
     if (this.$route.query.id) {
       this.fetchDetail(this.$route.query.id);
+    } else {
+      this.$store.dispatch('initModule')
     }
   },
   methods: {
@@ -81,30 +83,36 @@ export default {
     },
     fetchDetail(id) {
       this.$get('/api/mokuai/find', {id}).then(res => {
-        this.mokuai = res.data;
+        this.$store.dispatch('setModule', res.data)
       });
     },
     handleSave() {
-      const {mokuai} = this;
-      this.$post('/api/mokuai/create', mokuai).then(res => {
-        console.log(res);
+      const {module} = this.$store.state.moduleEdit;
+      const path = module._id ? '/api/mokuai/update' : '/api/mokuai/create'
+      this.$post(path, module).then(res => {
+        if (res.success) {
+          this.$notification.success({message: '保存成功'});
+          this.$store.dispatch('initModule')
+        }
       })
     },
     handlePreview() {
       const {moduleEdit} = this.$store.state;
       const postData = {
-        title: moduleEdit.module.name,
         mokuais: [{
           ...moduleEdit.module,
-          config: transformConfig(this.configuration)
+          id: moduleEdit.module.key,
+          configuration: transformConfig(this.configuration)
         }]
       }
       this.$post('/api/page/preview', postData).then(res => {
         const htmlString = res.data;
         let previewUrl = createPageUrl(htmlString);
-        console.log(previewUrl)
         this.$store.dispatch('setPreviewUrl', previewUrl);
       })
+    },
+    handleClosePreview() {
+      this.$store.dispatch('setPreviewUrl', '');
     }
   }
 }

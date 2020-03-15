@@ -1,80 +1,55 @@
 <template>
     <div class="mock-phone-container">
+        <div class="page-preview-title">
+          <span>{{title}}</span>
+            <a-icon @click="handleClose" class="page-preview-close" type="close-circle" />
+          </div>
         <div class="mock-phone">
-            <div class="inner">
-                <slot name="main"></slot>
-            </div>
-            <div class="camera"></div>
-            <div class="earpiece"></div>
-            <a target="_blank" href="" class="phone-home-btn"></a>
+            <slot name="main"></slot>
         </div>
+        <slot name="footer"></slot>
     </div>
 </template>
 
 <style scoped lang="less">
-@primary: #6e4bc2;
-@lightPrimary: #f6f1fe;
+@primary: #b1a3dc;
 .mock-phone-container {
   position: relative;
+  height: 100%;
+  width: 100%;
+  border: 1px solid @primary;
+  border-radius: 6px;
+  display:flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fefefe;
+  box-shadow: 0 0 4px 1px #ddd;
 }
 .mock-phone {
-    margin: 0 auto;
-    position: absolute;
-    top: 0;
-    z-index: 10;
-    width: 297px;
-    height: 600px;
-    border: 2px solid @primary;
-    border-radius: 30px;
+  flex:1;
+  overflow: auto;
 }
-.mock-phone .inner {
-    position: absolute;
-    top: 60px;
-    z-index: 26;
-    left: 12px;
-    width: 267px;
-    height: 441px;
-    overflow: auto;
-    border: 1px solid @primary;
+.page-preview-title {
+  position: relative;
+  padding: 8px 8px;
+  border-bottom: 1px solid @primary;
+  opacity: 0.6;
+  clear: both;
+  flex: none;
 }
-.mock-phone .camera {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border-radius: 14px;
-    background: @lightPrimary;
-    border: 1px solid @primary;
-    top: 23px;
-    left: 94px;
+.page-preview-close {
+  float: right;
+  margin-top: 4px;
+  font-size: 18px;
 }
-.mock-phone .earpiece {
-    position: absolute;
-    width: 70px;
-    height: 8px;
-    border-radius: 8px;
-    background: @lightPrimary;
-    border: 1px solid @primary;
-    top: 26px;
-    left: 124px;
-}
-.mock-phone .phone-home-btn {
-    position: absolute;
-    width: 56px;
-    height: 56px;
-    border-radius: 56px;
-    background: @lightPrimary;
-    border: 1px solid @primary;
-    bottom: 14px;
-    left: 50%;
-    margin-left: -28px;
-}
+
 </style>
 
 <script>
 export default {
-    data: () => ({
-
-    }),
-
+  props: {
+    title: String,
+    handleClose: Function
+  }
 }
 </script>

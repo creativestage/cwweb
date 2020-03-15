@@ -1,6 +1,7 @@
+import {getCurrentRoute} from '../../Tools/common';
+
 const getInitState = () => {
-  const {hash} = window.location;
-  const activeRoute = hash.slice(2);
+  const activeRoute = getCurrentRoute();
   const openRoutes = [];
   if (activeRoute) {
     openRoutes.push(activeRoute);

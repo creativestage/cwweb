@@ -51,12 +51,12 @@ export default {
     collapsed: false
   }),
   watch: {
-    '$store.state.main.activeRoute': function(newVal) {
-      this.collapsed = newVal === 'ModuleEdit';
+    '$store.state.main.activeRoute': function() {
+      // this.collapsed = this.$store.state.main.activeRoute === 'ModuleEdit';
     }
   },
   mounted() {
-    this.collapsed = this.$store.state.main.activeRoute === 'ModuleEdit';
+    // this.collapsed = this.$store.state.main.activeRoute === 'ModuleEdit';
   },
   methods: {
     toggleCollapsed() {

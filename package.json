@@ -12,6 +12,9 @@
     "axios": "^0.19.2",
     "codemirror": "^5.52.0",
     "core-js": "^3.6.4",
+    "dragula": "^3.7.2",
+    "mem-utils": "^1.0.2",
+    "qrcode": "^1.4.4",
     "vue": "^2.6.11"
   },
   "devDependencies": {

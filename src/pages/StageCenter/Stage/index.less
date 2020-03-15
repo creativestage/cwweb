@@ -1,0 +1,142 @@
+.stage-container {
+  width: 100%;
+  height:100%;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  grid-template-rows: auto-fill;
+  grid-column-gap: 8px;
+}
+.page-view {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.module-list-wrap {
+  height: 100%;
+  overflow: auto;
+  padding: 12px;
+  background: #fff;
+  .module-list {
+    margin-top: 12px;
+    overflow: auto;
+    position: relative;
+    z-index: 9;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    grid-row-gap: 8px;
+    grid-column-gap: 8px;
+  }
+  .module-item {
+    overflow: hidden;
+    position: relative;
+    &:hover {
+      .add-mask {
+        transform: translateX(0);
+      }
+    }
+  }
+  .add-mask {
+    transform: translateX(-100%);
+    transition: all 0.1s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &-inner {
+      width: 36%;
+      height: 36%;
+      border: 2px dashed #fff;
+      border-radius: 8px;
+      font-size: 32px;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+.page-stage-footer {
+  border-top: 1px solid #b1a3dc;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 12px;
+}
+.page-stage {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  .page-module-info {
+    position: relative;
+    width: 100%;
+    padding-bottom: 80%;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    img {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+    &:hover {
+      .page-module-config {
+        opacity: 1;
+      }
+    }
+    .page-module-setting {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: #fff;
+    }
+    .page-module-config {
+      position: absolute;
+      transition:all 0.3s;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      overflow: auto;
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      &-title {
+        flex: none;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-bottom: 1px solid #ccc;
+      }
+      &-actions {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 36px;
+        button {
+          margin: 0 8px;
+        }
+      }
+    }
+  }
+}
+.preview-box {
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 100%;
+}

@@ -1,40 +1,61 @@
 <template>
 <div class="page-container">
-    <div>
-        <a-input placeholder="按关键词查询"></a-input>
+    <div class="search_bar_container">
+      <div class="search_keywords" style="width: 400px">
+        <a-input placeholder="模块名/模块描述/模块key值"></a-input>
+      </div>
+        
       </div>
     <div class="my-module-list">
       <ModuleCard  v-for="item in list" :key="item._id" :item="item" />
     </div>
-    <a-button class="module-new-btn" type="primary">
-      <router-link to="/ModuleEdit">
-        新增
-      </router-link>
-    </a-button>
+    <div class="page-footer">
+      <a-button class="module-new-btn" type="primary">
+        <router-link to="/ModuleEdit">
+          新增
+        </router-link>
+      </a-button>
+    </div>
   </div>
 </template>
 
 <style scoped lang="less">
+.page-container {
+  position: relative;
+  padding-bottom: 48px;
+}
+.search_bar_container {
+  padding: 16px;
+  background: #f3f3f3;
+  border-radius: 8px;
+}
   .my-module-list {
-    display: flex;
-    flex-wrap: wrap;
-    height: 100%;
+    padding: 12px 0;
     overflow: auto;
     position: relative;
-    z-index: 999;
+    z-index: 9;
     display: grid;
     grid-template-columns: repeat(auto-fill, 240px);
     grid-row-gap: 8px;
     grid-column-gap: 8px;
   }
   .module-new-btn {
-    position: absolute;
-    z-index: 999;
-    bottom: 12px;
-    left: 50%;
-    width: 120px;
+    width: 80px;
+    letter-spacing: 6px;
     text-align: center;
-    transform: translate(-50%)
+  }
+  .page-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    padding-right: 12px;
+    width: 100%;
+    height: 48px;
+    background: #fff;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 </style>
 
@@ -43,50 +64,17 @@ import ModuleCard from '../../../components/Common/ModuleCard';
 export default {
   data: () => ({
     msg: 'myModule',
-    list: [
-      {
-        name: '倒计时',
-        desc: '倒计时组件，可以多重效果！',
-        img: 'http://qn.zhangyy.xyz/3c2e1cd452.png'
-      },
-      {
-        name: '倒计时',
-        desc: '倒计时组件，可以多重效果！',
-        img: 'http://qn.zhangyy.xyz/3c2e1cd452.png'
-      },
-      {
-        name: '倒计时',
-        desc: '倒计时组件，可以多重效果！',
-        img: 'http://qn.zhangyy.xyz/3c2e1cd452.png'
-      },
-      {
-        name: '倒计时',
-        desc: '倒计时组件，可以多重效果！',
-        img: 'http://qn.zhangyy.xyz/3c2e1cd452.png'
-      },
-      {
-        name: '倒计时',
-        desc: '倒计时组件，可以多重效果！',
-        img: 'http://qn.zhangyy.xyz/3c2e1cd452.png'
-      },
-      {
-        name: '倒计时',
-        desc: '倒计时组件，可以多重效果！',
-        img: 'http://qn.zhangyy.xyz/3c2e1cd452.png'
-      },
-      {
-        name: '倒计时',
-        desc: '倒计时组件，可以多重效果！',
-        img: 'http://qn.zhangyy.xyz/3c2e1cd452.png'
-      },
-      {
-        name: '倒计时',
-        desc: '倒计时组件，可以多重效果！',
-        img: 'http://qn.zhangyy.xyz/3c2e1cd452.png'
-      }
-    ]
+    list: []
   }),
+  mounted() {
+    this.fetchModuleList();
+  },
   methods: {
+    fetchModuleList() {
+      this.$get('/api/mokuai/search').then(res => {
+        this.list = res.data;
+      })
+    }
   },
   components: {
     ModuleCard,

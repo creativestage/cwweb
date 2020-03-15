@@ -1,10 +1,10 @@
 <template>
   <div class="header">
     <div class="logo">
-      logo
+      <router-link to="/">CWStage</router-link>
     </div>
     <div class="loginer-contianer">
-      <a-dropdown>
+      <!-- <a-dropdown>
         <a class="white">
           xuxu <a-icon type="down" />
         </a>
@@ -16,7 +16,7 @@
             <a href="javascript:;">退出</a>
           </a-menu-item>
         </a-menu>
-      </a-dropdown>
+      </a-dropdown> -->
     </div>
   </div>
 </template>

@@ -1,4 +1,3 @@
-
 /**
  * 前端配置列表数据转配置JSON
  * @param {Object} configArray 配置数组

@@ -15,15 +15,15 @@ export default {
         options = Object.assign({}, defaultConfig, options);
         axios.request(options).then(resp => {
           if (resp.status >= 400 || resp.status < 200) {
-            this.$message.text('网络错误，请刷新重试');
+            this.$notification.error('网络错误，请刷新重试');
           } else if (!resp.data.success) {
-            this.$message.text(resp.data.message || '网络错误，请重试');
+            this.$notification.error(resp.data.message || '网络错误，请重试');
             reject(resp.data);
           } else {
             resolve(resp.data);
           }
         }).catch(err => {
-          this.$message.text('网络错误，请重试');
+          this.$notification.error('网络错误，请重试');
           reject(err);
         })
       });

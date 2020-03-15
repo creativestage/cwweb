@@ -20,6 +20,7 @@ import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import Header from './components/Header';
 import Left from './components/Left';
 import TopNav from './components/TopNav';
+import {getCurrentRoute} from './Tools/common';
 export default {
   name: 'app',
   data() {
@@ -29,7 +30,7 @@ export default {
   },
   watch: {
     '$route': function () {
-      this.$store.dispatch('openRoute', window.location.hash.slice(2));
+      this.$store.dispatch('openRoute', getCurrentRoute());
     }
   },
   components: {
@@ -41,9 +42,6 @@ export default {
 </script>
 
 <style>
-#app {
-
-}
 .app-container {
   display: flex;
   height: calc(100vh - 48px);
