@@ -11,6 +11,7 @@
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   </a-locale-provider>
 </template>
@@ -20,6 +21,7 @@ import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import Header from './components/Header';
 import Left from './components/Left';
 import TopNav from './components/TopNav';
+import Footer from './components/Footer';
 import {getCurrentRoute} from './Tools/common';
 export default {
   name: 'app',
@@ -36,7 +38,8 @@ export default {
   components: {
     Header,
     Left,
-    TopNav
+    TopNav,
+    Footer
   }
 }
 </script>
@@ -44,7 +47,7 @@ export default {
 <style>
 .app-container {
   display: flex;
-  height: calc(100vh - 48px);
+  height: calc(100vh - 48px - 64px);
 }
 .app-content {
   width: 100%;

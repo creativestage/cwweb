@@ -4,17 +4,14 @@
       <div class="search_keywords" style="width: 400px">
         <a-input placeholder="模块名/模块描述/模块key值"></a-input>
       </div>
-        
-      </div>
-    <div class="my-module-list">
-      <ModuleCard  v-for="item in list" :key="item._id" :item="item" />
-    </div>
-    <div class="page-footer">
       <a-button class="module-new-btn" type="primary">
         <router-link to="/ModuleEdit">
           新增
         </router-link>
       </a-button>
+      </div>
+    <div class="my-module-list">
+      <ModuleCard  v-for="item in list" :key="item._id" :item="item" />
     </div>
   </div>
 </template>
@@ -28,6 +25,8 @@
   padding: 16px;
   background: #f3f3f3;
   border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
 }
   .my-module-list {
     padding: 12px 0;
@@ -43,19 +42,6 @@
     width: 80px;
     letter-spacing: 6px;
     text-align: center;
-  }
-  .page-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 999;
-    padding-right: 12px;
-    width: 100%;
-    height: 48px;
-    background: #fff;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
   }
 </style>
 
