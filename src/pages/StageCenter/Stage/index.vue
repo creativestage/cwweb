@@ -157,6 +157,10 @@ export default {
     },
     handleAdd(item) {
       let ret = Utils.extend(true, {} , item);
+      // 如果配置为空，则视为已配置
+      if (!JSON.parse(ret.config || '[]').length) {
+        ret.isDirty = true;
+      }
       ret.configuration = this.getConfiguration(item.config);
       ret.id = item.key + '-' + getUUId();
       this.pageModules = [...this.pageModules, ret];

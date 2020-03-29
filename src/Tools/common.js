@@ -15,7 +15,7 @@ export const travelTree = (treeData, conditionCallback) => {
 };
 
 //获取唯一module的id
-export const getUUId = () => `${Math.random().toString(16).slice(2, 10)}`;
+export const getUUId = () => `${Math.random().toString(16).slice(2, 6)}`;
 
 // html字符串转为本地url
 export const createPageUrl = (htmlString) => {

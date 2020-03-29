@@ -26,8 +26,9 @@
 .left-nav {
   position: relative;
   background: #fff;
+  width: 160px;
   .ant-menu {
-    width: 160px;
+    width: 100%;
     border: none;
   }
   &-collapsed {
