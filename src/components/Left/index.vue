@@ -12,8 +12,10 @@
           </a-menu-item>
         </a-sub-menu>
         <a-menu-item v-else-if="!item.hidden" @click="handleClick(item.code)" :key="item.code">
-          <a-icon :type="item.icon" />
-          <span>{{item.title}}</span>
+          <router-link :to="item.route">
+            <a-icon :type="item.icon" />
+            <span>{{item.title}}</span>
+          </router-link>
         </a-menu-item>
       </template>
     </a-menu>
