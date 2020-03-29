@@ -120,7 +120,17 @@ export default {
   },
   methods: {
     handleFork() {
-      console.log(this.item)
+      this.$post('/api/mokuai/fork',{id: this.item._id}).then(res => {
+        if (res.success) {
+          this.$notification.success({message: '操作成功'});
+          this.$router.push({
+            path: '/ModuleEdit',
+            query: {
+              id: res.data._id
+            }
+          })
+        }
+      })
     },
     handleEdit() {
       this.$router.push({

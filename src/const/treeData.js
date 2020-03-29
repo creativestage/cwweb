@@ -32,6 +32,28 @@ export const leftTreeData = [
         title: '创作台',
         route: '/Stage',
         code: 'Stage'
+      },
+      {
+        title: '我的页面',
+        route: '/MyPages',
+        code: 'MyPages'
+      }
+    ]
+  },
+  {
+    title: '指南',
+    code: 'Guide',
+    icon: 'eye',
+    children: [
+      {
+        title: '模块开发',
+        route: '/DevelopGuide',
+        code: 'DevelopGuide'
+      },
+      {
+        title: '页面搭建',
+        route: '/StageGuide',
+        code: 'StageGuide'
       }
     ]
   }

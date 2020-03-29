@@ -45,9 +45,28 @@
           </div>
         </div>
         <iframe class="preview-box" v-else slot="main" :src="previewUrl"></iframe>
-        <div class="page-stage-footer button_group" slot="footer">
-          <a-button @click="handlePreviewPage">预览</a-button>
-          <a-button @click="handleSave" type="primary">保存</a-button>
+        <div slot="footer">
+          <div class="page-info-form">
+            <a-row class="info-box">
+              <a-col class="info-label" :span="8">标题：</a-col>
+              <a-col :span="15">
+                <a-input v-model="title" placeholder="起一个响亮的标题" />
+                <div class="text-error" v-if="checkError && !title">起一个响亮的标题</div>
+              </a-col>
+            </a-row>
+            <a-row class="info-box">
+              <a-col class="info-label" :span="8">描述：</a-col>
+              <a-col :span="15">
+                <a-input v-model="desc"  placeholder="写一个拉风的描述" />
+                <div class="text-error" v-if="checkError && !desc">写一个拉风的描述</div>
+              </a-col>
+            </a-row>
+          </div>
+          
+          <div class="page-stage-footer button_group">
+            <a-button @click="handlePreviewPage">预览</a-button>
+            <a-button @click="handleSave" type="primary">保存</a-button>
+          </div>
         </div>
       </Preview>
     </div>
@@ -71,7 +90,10 @@ export default {
     msg: 'stage',
     moduleList: [],
     pageModules: [],
-    previewUrl: ''
+    previewUrl: '',
+    title: '',
+    desc: '',
+    checkError: false
   }),
   created() {
     this.fetchModuleList();
@@ -151,9 +173,15 @@ export default {
         return [];
       }
     },
-
+    checkConfigValid () {
+      const {pageModules} = this;
+      return pageModules.every(item => item.isDirty);
+    },
     handlePreviewPage() {
       const {pageModules} = this;
+      if (!this.checkConfigValid()) {
+        return this.$notification.error({message: '存在未配置组件！鼠标移入组件上进行配置'});
+      }
       const postData = {
         mokuais: pageModules.map(item => ({
           ...item,
@@ -167,7 +195,17 @@ export default {
       })
     },
     handleSave() {
+      if (!this.checkConfigValid()) {
+        return this.$notification.error({message: '存在未配置组件！鼠标移入组件上进行配置'});
+      }
+      if (!this.title || !this.desc) {
+        this.checkError = true;
+        return;
+      }
       const {pageModules} = this;
+      if (!pageModules.length) {
+        return this.$notification.error({message: '内容为空!'});
+      }
       const postData = {
         mokuais: pageModules.map(item => ({
           ...item,
