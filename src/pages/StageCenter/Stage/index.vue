@@ -78,7 +78,7 @@
 </style>
 
 <script>
-import {getFactory, createPageUrl, getUUId} from '../../../Tools/common';
+import {getFactory, createPageUrl, getUUId, getJsData} from '../../../Tools/common';
 import {transformConfig} from '../../../Tools/formatConversion';
 import ModuleCard from '../../../components/Common/ModuleCard';
 import Preview from '../../../components/Common/Preview';
@@ -158,7 +158,7 @@ export default {
     handleAdd(item) {
       let ret = Utils.extend(true, {} , item);
       // 如果配置为空，则视为已配置
-      if (!JSON.parse(ret.config || '[]').length) {
+      if (!(getJsData(ret.config || [])).length) {
         ret.isDirty = true;
       }
       ret.configuration = this.getConfiguration(item.config);

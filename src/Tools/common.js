@@ -26,6 +26,8 @@ export const createPageUrl = (htmlString) => {
 // 工厂函数
 export const getFactory = (str) => new Function(`return ${str}`);
 
+export const getJsData = (str) => getFactory(str)();
+
 export const getCurrentRoute = () => {
   const hash =  window.location.hash;
   let hasQuery = hash.indexOf('?') > -1;
