@@ -3,12 +3,17 @@
       hoverable
       class="module-card"
     >
+    
     <div slot="cover" class="poster-box">
       <img
         class="modole-poster"
         alt="example"
         :src="item.poster"
       />
+      <div class="author-info">
+        <div class="author-name">作者：{{item.author && item.author.name}}</div>
+        <div class="module-version">版本号：{{item.version}}</div>
+      </div>
     </div>
       
       <a-card-meta
@@ -63,6 +68,18 @@
       width: 100%;
       padding-bottom: 80%;
       overflow: hidden;
+    }
+    .author-info {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 8px;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 1);
+      color: #999;
     }
     .modole-poster {
       position: absolute;

@@ -92,7 +92,7 @@ export default {
       this.$post(path, module).then(res => {
         if (res.success) {
           this.$notification.success({message: '保存成功'});
-          this.$store.dispatch('initModule')
+          // this.$store.dispatch('initModule')
         }
       })
     },

@@ -3,6 +3,9 @@
     <div class="module-list-wrap">
       <div class="search_bar">
         <a-input placeholder="模糊查询：模块名/模块详情/模块key" />
+        <div class="pagination">
+          <a-pagination @change="onPaginationChange" size="small" :total="total" />
+        </div>
       </div>
       <div class="module-list" ref="modules">
         <div class="module-item" v-for="item in moduleList" :key="item._id">
@@ -87,6 +90,9 @@ import Utils from 'mem-utils';
 import qrcode from 'qrcode';
 export default {
   data: () => ({
+    total: 0,
+    page: 1,
+    pageSize: 10,
     msg: 'stage',
     moduleList: [],
     pageModules: [],
@@ -95,13 +101,26 @@ export default {
     desc: '',
     checkError: false
   }),
+  computed: {
+    queryFields() {
+      return {
+        page: this.page,
+        pageSize: this.pageSize
+      }
+    }
+  },
   created() {
     this.fetchModuleList();
   },
   methods: {
+    onPaginationChange(page) {
+      this.page = page;
+      this.fetchModuleList();
+    },
     fetchModuleList() {
-      this.$get('/api/mokuai/search').then(res => {
-        this.moduleList = res.data;
+      this.$get('/api/mokuai/search', this.queryFields).then(res => {
+        this.moduleList = res.data.rows;
+        this.total = res.data.total;
       })
     },
     handleClosePreview() {

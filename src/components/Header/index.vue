@@ -3,20 +3,20 @@
     <div class="logo">
       <router-link to="/">CWStage</router-link>
     </div>
-    <div class="loginer-contianer">
-      <!-- <a-dropdown>
+    <div class="loginer-contianer" v-if="$store.state.main.userInfo">
+      <a-dropdown>
         <a class="white">
-          xuxu <a-icon type="down" />
+          {{$store.state.main.userInfo.name}} <a-icon type="down" />
         </a>
         <a-menu slot="overlay">
           <a-menu-item>
             <a href="javascript:;">设置</a>
           </a-menu-item>
           <a-menu-item>
-            <a href="javascript:;">退出</a>
+            <a @click="handlelogout" href="javascript:;">退出</a>
           </a-menu-item>
         </a-menu>
-      </a-dropdown> -->
+      </a-dropdown>
     </div>
   </div>
 </template>
@@ -40,6 +40,19 @@
 export default {
   data: () => ({
 
-  })
+  }),
+  methods: {
+    handlelogout() {
+      this.$post('/auth/logout').then(res => {
+        if (!res.success) {
+          this.$notification.error({message: res.message});
+        } else {
+          this.$notification.success({message: '退出成功'});
+          this.$store.dispatch('logout')
+          this.$router.replace('/Login')
+        }
+      })
+    }
+  }
 }
 </script>

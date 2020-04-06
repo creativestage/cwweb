@@ -5,7 +5,7 @@
         <a-input placeholder="模块名/模块描述/作者名"></a-input>
       </div>
       <div class="pagination">
-        <a-pagination size="small" :total="50" />
+        <a-pagination @change="onPaginationChange" size="small" :total="total" />
       </div>
     </div>
     <div class="my-module-list">
@@ -63,16 +63,32 @@ import ModuleCard from '../../../components/Common/ModuleCard';
 export default {
   data: () => ({
     msg: 'myModule',
-    list: []
+    list: [],
+    total: 0,
+    page: 1,
+    pageSize: 10
   }),
+  computed: {
+    queryFields() {
+      return {
+        page: this.page,
+        pageSize: this.pageSize
+      }
+    }
+  },
   mounted() {
     this.fetchModuleList();
   },
   methods: {
     fetchModuleList() {
-      this.$get('/api/mokuai/search').then(res => {
-        this.list = res.data;
+      this.$get('/api/mokuai/search', this.queryFields).then(res => {
+        this.list = res.data.rows;
+        this.total = res.data.total;
       })
+    },
+    onPaginationChange(page) {
+      this.page = page;
+      this.fetchModuleList();
     }
   },
   components: {

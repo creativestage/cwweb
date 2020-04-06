@@ -1,17 +1,22 @@
 <template>
   <a-locale-provider :locale="zh_CN">
     <div id="app">
-      <Header />
-      <div class="app-container">
-        <Left />
-        <div class="app-content">
-          <TopNav />
-          <div class="content-inner">
-            <router-view></router-view>
+      <template v-if="$store.state.main.activeRoute !== 'Login'">
+        <Header />
+        <div class="app-container">
+          <Left />
+          <div class="app-content">
+            <TopNav />
+            <div class="content-inner">
+              <router-view></router-view>
+            </div>
           </div>
         </div>
-      </div>
-      <Footer />
+        <Footer />
+      </template>
+      <template v-else>
+        <Login />
+      </template>
     </div>
   </a-locale-provider>
 </template>
@@ -22,6 +27,7 @@ import Header from './components/Header';
 import Left from './components/Left';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
+import Login from './components/Login';
 import {getCurrentRoute} from './Tools/common';
 export default {
   name: 'app',
@@ -39,7 +45,8 @@ export default {
     Header,
     Left,
     TopNav,
-    Footer
+    Footer,
+    Login
   }
 }
 </script>

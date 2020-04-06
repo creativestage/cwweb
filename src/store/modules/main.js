@@ -1,14 +1,25 @@
-import {getCurrentRoute} from '../../Tools/common';
+import {getCurrentRoute, travelTree} from '../../Tools/common';
+import {allTreeData} from '../../const/treeData';
 
 const getInitState = () => {
   const activeRoute = getCurrentRoute();
   const openRoutes = [];
-  if (activeRoute) {
+  if (activeRoute && activeRoute !== 'Login') {
     openRoutes.push(activeRoute);
+  }
+  let userInfo = localStorage.getItem('userInfo');
+  if (userInfo) {
+    try {
+      userInfo = JSON.parse(userInfo);
+    } catch(e){
+      console.log(e)
+    }
   }
   return {
     activeRoute,
-    openRoutes
+    openRoutes,
+    isLogin: true,
+    userInfo
   }
 }
 
@@ -28,6 +39,13 @@ const mutations = {
       ...new Set(state.openRoutes.filter(code => code !== payload.removeRoute)).add(payload.activeRoute)
     ];
     state.activeRoute = payload.activeRoute;
+  },
+  logined(state, userInfo) {
+    state.isLogin = true;
+    state.userInfo = userInfo;
+  },
+  logout(state) {
+    state.userInfo = null;
   }
 }
 
@@ -53,11 +71,44 @@ const actions = {
       activeRoute: nextActiveRoute
     });
     success(nextActiveRoute);
+  },
+  login(context, {token, userInfo, success}) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    context.commit('logined', userInfo);
+    success();
+  },
+  logout(context) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userInfo');
+    context.commit('logout');
+  }
+}
+
+const getters = {
+  openNavList: state => {
+    return state.openRoutes
+    .sort((code1) => {
+      if (code1 === 'Home') return -1;
+      return 0;
+    })
+    .filter(code => code !== 'Login')
+    .map(code => {
+      const result = {code};
+      travelTree(allTreeData, (node) => {
+        if (node.code === code) {
+          result.title = node.title;
+          return true;
+        }
+      });
+      return result;
+    });
   }
 }
 
 export default {
   state,
   mutations,
-  actions
+  actions,
+  getters
 }

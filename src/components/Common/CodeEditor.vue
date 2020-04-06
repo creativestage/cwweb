@@ -15,9 +15,21 @@
         <a-tab-pane tab="基础信息" key="base">
           <div class="code-base-info">
             <div class="line-box">
+              <div class="line-label">模块KEY值</div>
+              <div class="line-control">
+                {{mokuai.key}}
+              </div>
+            </div>
+            <div class="line-box">
               <div class="line-label">模块名</div>
               <div class="line-control">
                 <a-input :value="mokuai.name" @input="handleInputChange('name', $event)" placeholder="请输入模块名" />
+              </div>
+            </div>
+            <div class="line-box">
+              <div class="line-label">版本号</div>
+              <div class="line-control">
+                <a-input :value="mokuai.version" @input="handleInputChange('version', $event)" placeholder="请输入版本号" />
               </div>
             </div>
             <div class="line-box">

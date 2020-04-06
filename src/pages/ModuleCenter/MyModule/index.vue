@@ -67,7 +67,7 @@ export default {
   methods: {
     fetchModuleList() {
       this.$get('/api/mokuai/search').then(res => {
-        this.list = res.data;
+        this.list = res.data.rows;
       })
     }
   },
