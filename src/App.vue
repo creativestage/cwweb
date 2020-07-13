@@ -49,9 +49,9 @@ export default {
     Login
   },
   created() {
-    this.$post('/auth/checkLogin').then(res => {
-      console.log(res)
-    })
+    // this.$post('/auth/checkLogin').then(res => {
+    //   console.log(res)
+    // })
   }
 }
 </script>

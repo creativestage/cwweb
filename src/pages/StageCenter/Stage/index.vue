@@ -86,7 +86,7 @@ import {transformConfig} from '../../../Tools/formatConversion';
 import ModuleCard from '../../../components/Common/ModuleCard';
 import Preview from '../../../components/Common/Preview';
 import ConfigForm from '../../../components/Common/ConfigForm';
-import Utils from 'mem-utils';
+// import Utils from 'mem-utils';
 import qrcode from 'qrcode';
 export default {
   data: () => ({
@@ -175,7 +175,7 @@ export default {
       this.pageModules = nextPageModules;
     },
     handleAdd(item) {
-      let ret = Utils.extend(true, {} , item);
+      let ret = item;
       // 如果配置为空，则视为已配置
       if (!(getJsData(ret.config || [])).length) {
         ret.isDirty = true;

@@ -3,9 +3,10 @@ import axios from 'axios';
 
 export default {
   install: function () {
-    
+    let isDev = process.env.NODE_ENV === 'development';
     Vue.prototype.$ajax = function (options) {
-      let isDev = process.env.NODE_ENV === 'development';
+      
+      isDev = false
       const defaultConfig = {
         method: 'GET',
         baseURL: isDev ? 'http://localhost:4800/' : 'http://zhangyy.xyz:4800/',
