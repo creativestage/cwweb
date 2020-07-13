@@ -3,17 +3,18 @@ import axios from 'axios';
 
 export default {
   install: function () {
-    const isDev = process.env.NODE_ENV === 'development';
-    const defaultConfig = {
-      method: 'GET',
-      baseURL: isDev ? 'http://localhost:4800/' : 'http://zhangyy.xyz:4800/',
-      timeout: 3000,
-      withCredentials: true,
-      headers: {
-        _cwsign_: localStorage.getItem('token')
-      }
-    };
+    
     Vue.prototype.$ajax = function (options) {
+      let isDev = process.env.NODE_ENV === 'development';
+      const defaultConfig = {
+        method: 'GET',
+        baseURL: isDev ? 'http://localhost:4800/' : 'http://zhangyy.xyz:4800/',
+        timeout: 3000,
+        withCredentials: true,
+        headers: {
+          _cwsign_: localStorage.getItem('token')
+        }
+      };
       return new Promise((resolve, reject) => {
         options = Object.assign({}, defaultConfig, options);
         axios.request(options).then(resp => {
