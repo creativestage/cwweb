@@ -280,7 +280,6 @@ window.MemAntInterval = ({startPos, interval, config}) => {
   const handle = MemAnt.get(startPos);
   let num = 0;
   let timer = setInterval(() => {
-      console.log(num)
       handle.next(num++);
       if (handle.isDone()) {
           handle.distory();

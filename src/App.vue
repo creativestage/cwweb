@@ -47,6 +47,11 @@ export default {
     TopNav,
     Footer,
     Login
+  },
+  created() {
+    this.$post('/auth/checkLogin').then(res => {
+      console.log(res)
+    })
   }
 }
 </script>
