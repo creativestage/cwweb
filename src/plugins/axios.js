@@ -6,7 +6,6 @@ export default {
     let isDev = process.env.NODE_ENV === 'development';
     Vue.prototype.$ajax = function (options) {
       
-      isDev = false
       const defaultConfig = {
         method: 'GET',
         baseURL: isDev ? 'http://localhost:4800/' : 'http://zhangyy.xyz:4800/',

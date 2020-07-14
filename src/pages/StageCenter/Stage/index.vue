@@ -175,9 +175,9 @@ export default {
       this.pageModules = nextPageModules;
     },
     handleAdd(item) {
-      let ret = item;
+      let ret = JSON.parse(JSON.stringify(item));
       // 如果配置为空，则视为已配置
-      if (!(getJsData(ret.config || [])).length) {
+      if (!(getJsData(ret.config || []) || []).length) {
         ret.isDirty = true;
       }
       ret.configuration = this.getConfiguration(item.config);
