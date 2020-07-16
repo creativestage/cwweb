@@ -23,7 +23,7 @@
         </template>
       </a-card-meta>
       <template class="ant-card-actions" slot="actions" v-if="showAction">
-        <slot :item="item" name="actinos"/>
+        <slot :item="item" name="actions"/>
       </template>
     </a-card>
 </template>
