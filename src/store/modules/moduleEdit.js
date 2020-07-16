@@ -2,7 +2,7 @@
 import {getUUId, getFactory} from '../../Tools/common';
 
 const getInitModule = () => ({
-  key: getUUId(),
+  key: 'module-' +getUUId(),
   name: '',
   desc: '',
   html: '',
@@ -14,7 +14,7 @@ const getInitModule = () => ({
 const state = {
   configurationValue: {},
   previewUrl: '',
-  module: getInitModule()
+  module: null
 }
 
 const mutations = {

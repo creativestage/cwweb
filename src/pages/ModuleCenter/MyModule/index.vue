@@ -5,7 +5,7 @@
         <a-input v-model="keywords" placeholder="模块名/模块描述/模块key值"></a-input>
       </div>
       <a-button class="module-new-btn" type="primary">
-        <router-link to="/ModuleEdit">
+        <router-link :to="{path: '/ModuleEdit', query: {from: 'createAction'}}">
           新增
         </router-link>
       </a-button>

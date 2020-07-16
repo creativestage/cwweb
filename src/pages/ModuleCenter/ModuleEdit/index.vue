@@ -67,7 +67,13 @@ export default {
     if (this.$route.query.id) {
       this.fetchDetail(this.$route.query.id);
     } else {
-      this.$store.dispatch('initModule')
+      // 来源为新增行为或者当前没有module对象时，初始化
+      if (
+        this.$route.query.from === 'createAction' ||
+        !this.$store.state.moduleEdit.module
+      ) {
+        this.$store.dispatch('initModule')
+      }
     }
   },
   methods: {
