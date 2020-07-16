@@ -13,25 +13,25 @@
     <div class="my-module-list">
       <ModuleCard  v-for="item in filterList" :key="item._id" :item="item">
         <template v-slot:actinos="item">
-          <a-tooltip placement="top" @click="handleFork">
+          <a-tooltip placement="top" @click="handleFork(item)">
             <template slot="title">
               <span>分支</span>
             </template>
             <a-icon type="fork" />
           </a-tooltip>
-          <a-tooltip placement="top" @click="handleEdit">
+          <a-tooltip placement="top" @click="handleEdit(item)">
             <template slot="title">
               <span>编辑</span>
             </template>
             <a-icon type="edit"/>
           </a-tooltip>
-          <a-tooltip placement="top" v-if="item.lockFlag" @click="handleUnLock" >
+          <a-tooltip placement="top" v-if="item.lockFlag" @click="handleUnLock(item)" >
             <template slot="title">
               <span>解锁</span>
             </template>
             <a-icon type="lock" />
           </a-tooltip>
-          <a-tooltip placement="top" v-else  @click="handleLock" >
+          <a-tooltip placement="top" v-else  @click="handleLock(item)" >
             <template slot="title">
               <span>锁定</span>
             </template>
@@ -103,8 +103,8 @@ export default {
         this.list = res.data;
       })
     },
-    handleFork() {
-      this.$post('/api/mokuai/fork',{id: this.item._id}).then(res => {
+    handleFork(item) {
+      this.$post('/api/mokuai/fork',{id: item._id}).then(res => {
         if (res.success) {
           this.$notification.success({message: '操作成功'});
           this.$router.push({
@@ -116,24 +116,24 @@ export default {
         }
       })
     },
-    handleEdit() {
+    handleEdit(item) {
       this.$router.push({
         path: '/ModuleEdit',
         query: {
-          id: this.item._id
+          id: item._id
         }
       })
     },
-    handleLock() {
-      this.$post('/api/mokuai/lock',{id: this.item._id}).then(res => {
+    handleLock(item) {
+      this.$post('/api/mokuai/lock',{id: item._id}).then(res => {
         if (res.success) {
           this.$notification.success({message: '锁定成功'});
           this.item.lockFlag = res.data.lockFlag;
         }
       })
     },
-    handleUnLock() {
-      this.$post('/api/mokuai/unlock', {id: this.item._id}).then(res => {
+    handleUnLock(item) {
+      this.$post('/api/mokuai/unlock', {id: item._id}).then(res => {
         if (res.success) {
           this.$notification.success({message: '解锁成功'})
           this.item.lockFlag = res.data.lockFlag;
