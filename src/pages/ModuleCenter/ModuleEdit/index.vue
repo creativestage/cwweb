@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-container module-edit-contianer">
+  <div class="flex-container module-edit-contianer" v-if="$store.state.moduleEdit.module">
       <CodeEditor
         :mokuai="$store.state.moduleEdit.module" :handleChange="handleChange"
         v-on:save="handleSave">

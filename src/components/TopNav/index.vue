@@ -91,6 +91,9 @@ export default {
       });
     },
     handleClick(code) {
+      if (code === this.$store.state.main.activeRoute) {
+        return;
+      }
       this.$store.dispatch('changeActiveRoute', {
         route: code,
         success: () => {

@@ -9,7 +9,22 @@
       </div>
     </div>
     <div class="my-module-list">
-      <ModuleCard  v-for="item in list" :key="item._id" :item="item" />
+      <ModuleCard  v-for="item in list" :key="item._id" :item="item" >
+        <template v-slot:actions="row">
+          <a-tooltip placement="top" @click="handleFork(row.item)">
+            <template slot="title">
+              <span>分支</span>
+            </template>
+            <a-icon type="fork" />
+          </a-tooltip>
+          <a-tooltip placement="top" @click="handleInfo(row.item)" >
+            <template slot="title">
+              <span>信息</span>
+            </template>
+            <a-icon type="info-circle" />
+          </a-tooltip>
+        </template>
+      </ModuleCard>
     </div>
   </div>
 </template>
@@ -89,6 +104,22 @@ export default {
     onPaginationChange(page) {
       this.page = page;
       this.fetchModuleList();
+    },
+    handleFork(item) {
+      this.$post('/api/mokuai/fork',{id: item._id}).then(res => {
+        if (res.success) {
+          this.$notification.success({message: '操作成功'});
+          this.$router.push({
+            path: '/ModuleEdit',
+            query: {
+              id: res.data._id
+            }
+          })
+        }
+      })
+    },
+    handleInfo(item) {
+      console.log(item)
     }
   },
   components: {
