@@ -99,8 +99,8 @@ export default {
   },
   methods: {
     fetchModuleList() {
-      this.$get('/api/mokuai/searchByUser').then(res => {
-        this.list = res.data;
+      this.$get('/api/mokuai/search').then(res => {
+        this.list = res.data.rows;
       })
     },
     handleFork(item) {

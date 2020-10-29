@@ -10,4 +10,3 @@ export const createDragStage = (originDom, targetDom) => {
     }
   });
 }
-console.log('???')
