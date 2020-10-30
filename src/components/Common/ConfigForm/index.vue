@@ -8,6 +8,7 @@
           <InputConfig v-if="item.type === 'input'" :config="item" :onChange="onChange" />
           <SelectConfig v-if="item.type === 'select'" :config="item" :onChange="onChange" />
           <RadioConfig v-if="item.type === 'radio'" :config="item" :onChange="onChange" />
+          <CheckboxConfig v-if="item.type === 'checkbox'" :config="item" :onChange="onChange" />
         </div>
       </div>
     </div>
@@ -71,6 +72,7 @@
 import InputConfig from './InputConfig';
 import SelectConfig from './SelectConfig';
 import RadioConfig from './RadioConfig'
+import CheckboxConfig from './CheckboxConfig';
 export default {
   name: 'ConfigForm',
   props: {
@@ -80,6 +82,7 @@ export default {
     InputConfig,
     SelectConfig,
     RadioConfig,
+    CheckboxConfig
   },
   methods: {
     onChange(field, value) {
