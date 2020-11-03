@@ -1,5 +1,5 @@
 <template>
-  <a-radio-group :options="config.options" @change="onChange(config.key, $event.target.value)" :value="config.value" />
+  <a-radio-group :options="config.options" @change="onChange(config.key, $event.target.value)" :value="config.value" :placeholder="config.placeholder || ''" />
 </template>
 
 <style scoped>

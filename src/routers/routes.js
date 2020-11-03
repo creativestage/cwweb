@@ -6,6 +6,7 @@ const MyModule = () => import('../pages/ModuleCenter/MyModule');
 const ModuleEdit = () => import('../pages/ModuleCenter/ModuleEdit');
 const StageGuide = () => import('../pages/Guide/StageGuide');
 const DevelopGuide = () => import('../pages/Guide/DevelopGuide');
+const ConfigurationGuide = () => import('../pages/Guide/ConfigurationGuide')
 const MyPages = () => import('../pages/StageCenter/MyPages');
 const Login = () => import('../components/Login/index');
 
@@ -20,6 +21,7 @@ const routes = [
   {path: '/ModuleEdit', component: ModuleEdit, meta: {auth: true}},
   {path: '/StageGuide', component: StageGuide, meta: {auth: true}},
   {path: '/DevelopGuide', component: DevelopGuide, meta: {auth: true}},
+  {path: '/ConfigurationGuide', component: ConfigurationGuide, meta: {auth: true}},
   {path: '/MyPages', component: MyPages, meta: {auth: true}},
 ];
 

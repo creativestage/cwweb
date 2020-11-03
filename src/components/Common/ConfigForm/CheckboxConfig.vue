@@ -1,5 +1,5 @@
 <template>
-  <a-checkbox-group :options="config.options" @change="onChange(config.key, $event)" :value="config.value" />
+  <a-checkbox-group :options="config.options" @change="onChange(config.key, $event)" :value="config.value" :placeholder="config.placeholder || ''" />
 </template>
 
 <style scoped>

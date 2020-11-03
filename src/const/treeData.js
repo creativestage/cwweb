@@ -54,6 +54,11 @@ export const leftTreeData = [
         title: '页面搭建',
         route: '/StageGuide',
         code: 'StageGuide'
+      },
+      {
+        title: '配置项文档',
+        route: '/ConfigurationGuide',
+        code: 'ConfigurationGuide'
       }
     ]
   }
