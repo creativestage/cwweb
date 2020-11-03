@@ -237,6 +237,9 @@ export default {
       }
       this.$post('/api/page/create', postData).then(res => {
         let {url} = res.data;
+        if (!url) {
+          return this.$notification.error({message: '创建失败!'});
+        }
         qrcode.toDataURL(url, (err, qrcodeUrl) => {
             this.$nextTick(() => {
                 this.$preview.show(qrcodeUrl, url);
